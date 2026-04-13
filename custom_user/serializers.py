@@ -1,14 +1,22 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from rest_framework.validators import UniqueValidator
 
 
 User = get_user_model()
 
 class UserSerializer(serializers.Serializer):
-    username = serializers.CharField(required=True)
+    username = serializers.CharField(
+        required=True,
+        validators = [UniqueValidator(queryset=User.objects.all())]
+        )
     password = serializers.CharField(required=True)
     confirm_password = serializers.CharField(required=True)
-    email = serializers.EmailField(required=True)
+
+    email = serializers.EmailField(
+        required=True,
+        validators = [UniqueValidator(queryset=User.objects.all())]
+        )
 
     def validate(self, obj):
         if obj.get("password") != obj.get("confirm_password"):
@@ -28,7 +36,7 @@ class UserSerializer(serializers.Serializer):
     def create(self, validated_data):
         validated_data = validated_data.copy()
         validated_data.pop('confirm_password')
-        User.objects.create_user(**validated_data)
+        return User.objects.create_user(**validated_data)
 
     
 
