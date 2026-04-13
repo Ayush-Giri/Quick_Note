@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "custom_user",
     'user_profile',
     'rest_framework_simplejwt',
+    'notes',
 ]
 
 MIDDLEWARE = [
