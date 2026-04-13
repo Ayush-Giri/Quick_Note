@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
     'drf_spectacular',
     "custom_user",
+    'user_profile',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,6 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'custom_user.CustomUser'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
